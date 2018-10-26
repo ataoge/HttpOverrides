@@ -114,7 +114,7 @@ namespace Ataoge.AspNetCore.HttpOverrides
                         || (checkProto && forwardedProto.Length != forwardedPath.Length)
                         || (checkHost && forwardedHost.Length != forwardedPath.Length)))
                 {
-                    _logger.LogWarning(1, "Parameter count mismatch between X-Forwarded-Host and X-Forwarded-For or X-Forwarded-Proto.");
+                    _logger.LogWarning(1, "Parameter count mismatch between X-Forwarded-PathBase and X-Forwarded-Host and X-Forwarded-For or X-Forwarded-Proto.");
                     return;
                 }
                 entryCount = Math.Max(forwardedPath.Length, entryCount);
@@ -313,6 +313,14 @@ namespace Ataoge.AspNetCore.HttpOverrides
 
         private bool CheckKnownAddress(IPAddress address)
         {
+            if (address.IsIPv4MappedToIPv6)
+            {
+                var ipv4Address = address.MapToIPv4();
+                if (CheckKnownAddress(ipv4Address))
+                {
+                    return true;
+                }
+            }
             if (_options.KnownProxies.Contains(address))
             {
                 return true;
@@ -325,6 +333,7 @@ namespace Ataoge.AspNetCore.HttpOverrides
                 }
             }
             return false;
+            
         }
 
         private struct SetOfForwarders

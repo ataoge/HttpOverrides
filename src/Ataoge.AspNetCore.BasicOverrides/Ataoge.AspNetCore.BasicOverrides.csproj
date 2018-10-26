@@ -1,14 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-   <AssemblyName>Ataoge.AspNetCore.HttpOverrides</AssemblyName>
-    <PackageId>Ataoge.AspNetCore.HttpOverrides</PackageId>
+    <AssemblyName>Ataoge.AspNetCore.BasicOverrides</AssemblyName>
+    <PackageId>Ataoge.AspNetCore.BasicOverrides</PackageId>
     <VersionPrefix>2.1.0</VersionPrefix>
-    <Description>ASP.NET Core basic middleware for supporting HTTP method overrides. Includes:
-* X-Forwarded-* headers to forward headers from a proxy.
-* HTTP method override header.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>aspnetcore;proxy;headers;xforwarded</PackageTags>
   </PropertyGroup>
@@ -18,5 +14,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
   </ItemGroup>
-
 </Project>
