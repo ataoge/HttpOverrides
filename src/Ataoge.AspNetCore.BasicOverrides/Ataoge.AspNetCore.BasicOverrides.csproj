@@ -3,15 +3,15 @@
   <PropertyGroup>
     <AssemblyName>Ataoge.AspNetCore.BasicOverrides</AssemblyName>
     <PackageId>Ataoge.AspNetCore.BasicOverrides</PackageId>
-    <VersionPrefix>2.2.0</VersionPrefix>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>3.1.1</VersionPrefix>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageTags>aspnetcore;proxy;headers;xforwarded</PackageTags>
+    <PackageTags>aspnetcore;proxy;headers;X-Forwarded-Pathbase</PackageTags>
+     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageLicenseExpressionVersion>1.0.0</PackageLicenseExpressionVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
+     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

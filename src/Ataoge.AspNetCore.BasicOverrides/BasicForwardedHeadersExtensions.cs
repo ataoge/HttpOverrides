@@ -41,6 +41,8 @@ namespace Microsoft.AspNetCore.Builder
                 throw new ArgumentNullException(nameof(options));
             }
 
+            
+
             builder.UseMiddleware<BasicForwardedHeadersMiddleware>(Options.Create(options));
 
             if ((options.ForwardedHeaders & BasicForwardedHeaders.IntranetPenetration) == BasicForwardedHeaders.IntranetPenetration)

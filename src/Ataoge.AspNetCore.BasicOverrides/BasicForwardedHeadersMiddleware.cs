@@ -78,15 +78,19 @@ namespace Ataoge.AspNetCore.BasicOverrides
             bool chenckPathBase = false, checkUrlBase = false;
             int entryCount = 0;
 
+            
             forwardedFor = context.Request.Headers.GetCommaSeparatedValues(BasicForwardedHeadersDefaults.XForwardedForHeaderName);
-
+            if (forwardedFor.Length == 0)  // 已经有一个代理
+            {
+                forwardedFor = context.Request.Headers.GetCommaSeparatedValues(BasicForwardedHeadersDefaults.XOriginalForHeaderName);
+            }
             if ((_options.ForwardedHeaders & BasicForwardedHeaders.XForwardedPathBase) == BasicForwardedHeaders.XForwardedPathBase)
             {
                 chenckPathBase = true;
                 forwardedPathBase = context.Request.Headers.GetCommaSeparatedValues(_options.ForwardedPathBaseHeaderName);
                 entryCount = Math.Max(forwardedFor.Length, entryCount);
             }
-
+             _logger.LogWarning(1, "Parameter aaa" + forwardedPathBase.FirstOrDefault());
             if ((_options.ForwardedHeaders & BasicForwardedHeaders.XForwardedBaseUrl) == BasicForwardedHeaders.XForwardedBaseUrl)
             {
                 checkUrlBase = true;

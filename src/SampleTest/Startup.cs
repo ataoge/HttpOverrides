@@ -32,8 +32,16 @@ namespace SampleTest
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+           /* services.Configure<BasicForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = BasicForwardedHeaders.IntranetPenetration | BasicForwardedHeaders.XForwardedPathBase;
+                            
+            });*/
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,12 +59,20 @@ namespace SampleTest
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseBasicForwardedHeaders(new BasicForwardedHeadersOptions() {
-                ForwardedHeaders = BasicForwardedHeaders.IntranetPenetration | BasicForwardedHeaders.XForwardedBaseUrl
-                
-            });
+            var basicForwardedHeadersOptions = new BasicForwardedHeadersOptions() {
+                 ForwardedHeaders = BasicForwardedHeaders.IntranetPenetration | BasicForwardedHeaders.XForwardedPathBase
+                  
+            };
+            app.UseBasicForwardedHeaders(basicForwardedHeadersOptions);
            
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
